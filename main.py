@@ -105,7 +105,7 @@ class Game(object):
 
 
 
-        ###MAIN MENU###############
+        ########################MAIN MENU###############
         def main_menu():
             global colorb
             global colorb2
