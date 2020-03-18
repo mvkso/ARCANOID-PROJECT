@@ -533,7 +533,7 @@ class Game(object):
             brick14.bool = True
             self.player.moveX = 3
             self.ball.pos.x = 600
-            self.ball.pos.y = 500
+            self.ball.pos.y = 400
             self.button2.bool = False
             self.screen.blit(self.ball.draw(), (int(self.ball.pos.x), int(self.ball.pos.y)))
 
@@ -647,12 +647,320 @@ class Game(object):
 
         if level3()==0:
             level4()
+
+        ############ LEVEL 5 ###################
+
+        def level5():
+            global colorb
+            self.button = Button(310, 300, 400, 100, False)
+            self.button2 = Button(310, 300, 400, 100, False)
+            self.player.pos = Vector2(460, 650)
+
+            brick1.pos = Vector2(70, 70)
+            brick2.pos = Vector2(144, 144)
+            brick3.pos = Vector2(218, 218)
+            brick4.pos = Vector2(292, 292)
+            brick5.pos = Vector2(366, 366)
+            brick6.pos = Vector2(480, 200)
+            #brick6.pos = Vector2(480, 440)
+            brick7.pos = Vector2(594, 366)
+            brick8.pos = Vector2(668, 292)
+            brick9.pos = Vector2(742, 218)
+            brick10.pos = Vector2(816, 144)
+            brick11.pos = Vector2(890, 70)
+            # brick12.pos = Vector2(480, 366)
+            # brick13.pos = Vector2(480, 292)
+            # brick14.pos = Vector2(480, 218)
+
+            brick1.bool = True
+            brick2.bool = True
+            brick3.bool = True
+            brick4.bool = True
+            brick5.bool = True
+            brick6.bool = True
+            brick7.bool = True
+            brick8.bool = True
+            brick9.bool = True
+            brick10.bool = True
+            brick11.bool = True
+            brick12.bool = False
+            brick13.bool = False
+            brick14.bool = False
+            self.player.moveX = 3
+            self.ball.pos.x = 500
+            self.ball.pos.y = 500
+            self.button2.bool = False
+            self.screen.blit(self.ball.draw(), (int(self.ball.pos.x), int(self.ball.pos.y)))
+
+            self.lvl = 5
+            self.i = 0
+
+            while True:
+                # Handle events
+
+                for event in pygame.event.get():
+                    mpos = pygame.mouse.get_pos()
+                    if event.type == pygame.QUIT:
+                        sys.exit(0)
+                    elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                        sys.exit(0)
+                    elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                        self.score += 1
+                    elif event.type == pygame.MOUSEMOTION:
+                        if isOver(self.button, mpos):
+                            colorb = (0, 255, 0)
+                        else:
+                            colorb = (255, 0, 0)
+                    elif event.type == pygame.MOUSEBUTTONDOWN:
+                        if self.button2.bool == True and isOver(self.button2, mpos):
+                            return 0
+                        if self.button.bool == True and isOver(self.button, mpos):
+                            brick1.bool = True
+                            brick2.bool = True
+                            brick3.bool = True
+                            brick4.bool = True
+                            brick5.bool = True
+                            brick6.bool = True
+                            brick7.bool = True
+                            brick8.bool = True
+                            brick9.bool = True
+                            brick10.bool = True
+                            brick11.bool = True
+                            # brick12.bool = True
+                            # brick13.bool = True
+                            # brick14.bool = True
+                            self.button.bool = False
+                            self.ball.pos.x = 400
+                            self.ball.pos.y = 200
+                            self.player.pos = Vector2(460, 650)
+                            # self.ball.moveX=-1
+                            # self.ball.moveY=2
+                            self.score = 0
+                            self.i = 0
+
+                # ticking
+
+                self.tps_delta += self.tps_clock.tick() / 120.0
+                while self.tps_delta > 1 / self.tps_max:
+                    self.tick()
+                    self.tps_delta -= 1 / self.tps_max
+
+                # drawing
+                self.screen.fill((130, 130, 130))
+                self.screen.blit(interface, (0, 0))
+
+                if brick1.bool == True:
+                    collision(self.ball, brick1)
+                if brick2.bool == True:
+                    collision(self.ball, brick2)
+                if brick3.bool == True:
+                    collision(self.ball, brick3)
+                if brick4.bool == True:
+                    collision(self.ball, brick4)
+                if brick5.bool == True:
+                    collision(self.ball, brick5)
+                if brick6.bool == True:
+                    collision(self.ball, brick6)
+                if brick7.bool == True:
+                    collision(self.ball, brick7)
+                if brick8.bool == True:
+                    collision(self.ball, brick8)
+                if brick9.bool == True:
+                    collision(self.ball, brick9)
+                if brick10.bool == True:
+                    collision(self.ball, brick10)
+                if brick11.bool == True:
+                    collision(self.ball, brick11)
+                # if brick12.bool == True:
+                #     collision(self.ball, brick12)
+                # if brick13.bool == True:
+                #     collision(self.ball, brick13)
+                # if brick14.bool == True:
+                #     collision(self.ball, brick14)
+
+                text = font.render(str(self.score), 1, (130, 105, 20))
+                text2 = font2.render(str(self.lvl), 1, (130, 105, 20))
+                self.screen.blit(text, (1115, 420))
+                self.screen.blit(text2, (1115, 260))
+                self.screen.blit(self.ball.draw(), (int(self.ball.pos.x), int(self.ball.pos.y)))
+
+                temp = self.ball.pos.y
+
+                # self.screen.blit(, (int(self.button.pos.x), int(self.button.pos.y)))
+                self.draw()
+                if temp > 700:
+                    self.button.bool = True
+                    youlost()
+                if self.score == 5:
+                    self.button2.bool = True
+                    nextlevelbutton()
+
+                    # Chwila przerwy przed rozpoczeciem
+                wait(-2, 2)
+
+                pygame.display.flip()
+
+
+        if level4()==0:
+            level5()
+
+    ##### LEVEL 6 ##############
+
+        def level6():
+
+            global colorb
+            self.button = Button(310, 300, 400, 100, False)
+            self.button2 = Button(310, 300, 400, 100, False)
+            self.player.pos = Vector2(460, 650)
+
+            brick1.pos = Vector2(70, 70)
+            brick2.pos = Vector2(144, 144)
+            brick3.pos = Vector2(218, 218)
+            brick4.pos = Vector2(292, 292)
+            brick5.pos = Vector2(366, 366)
+            brick6.pos = Vector2(480, 100)
+            # brick6.pos = Vector2(420, 440)
+            brick7.pos = Vector2(594, 366)
+            brick8.pos = Vector2(668, 292)
+            brick9.pos = Vector2(742, 218)
+            brick10.pos = Vector2(816, 144)
+            brick11.pos = Vector2(890, 70)
+            brick12.pos = Vector2(480, 366)
+            brick13.pos = Vector2(480, 292)
+            brick14.pos = Vector2(480, 218)
+
+            brick1.bool = True
+            brick2.bool = True
+            brick3.bool = True
+            brick4.bool = True
+            brick5.bool = True
+            brick6.bool = True
+            brick7.bool = True
+            brick8.bool = True
+            brick9.bool = True
+            brick10.bool = True
+            brick11.bool = True
+            brick12.bool = True
+            brick13.bool = True
+            brick14.bool = True
+            self.player.moveX = 3
+            self.ball.pos.x = 500
+            self.ball.pos.y = 500
+            self.button2.bool = False
+            self.screen.blit(self.ball.draw(), (int(self.ball.pos.x), int(self.ball.pos.y)))
+
+            self.lvl = 5
+            self.i = 0
+
+            while True:
+                # Handle events
+
+                for event in pygame.event.get():
+                    mpos = pygame.mouse.get_pos()
+                    if event.type == pygame.QUIT:
+                        sys.exit(0)
+                    elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                        sys.exit(0)
+                    elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                        self.score += 1
+                    elif event.type == pygame.MOUSEMOTION:
+                        if isOver(self.button, mpos):
+                            colorb = (0, 255, 0)
+                        else:
+                            colorb = (255, 0, 0)
+                    elif event.type == pygame.MOUSEBUTTONDOWN:
+                        if self.button2.bool == True and isOver(self.button2, mpos):
+                            return 0
+                        if self.button.bool == True and isOver(self.button, mpos):
+                            brick1.bool = True
+                            brick2.bool = True
+                            brick3.bool = True
+                            brick4.bool = True
+                            brick5.bool = True
+                            brick6.bool = True
+                            brick7.bool = True
+                            brick8.bool = True
+                            brick9.bool = True
+                            brick10.bool = True
+                            brick11.bool = True
+                            brick12.bool = True
+                            brick13.bool = True
+                            brick14.bool = True
+                            self.button.bool = False
+                            self.ball.pos.x = 400
+                            self.ball.pos.y = 200
+                            self.player.pos = Vector2(460, 650)
+                            # self.ball.moveX=-1
+                            # self.ball.moveY=2
+                            self.score = 0
+                            self.i = 0
+
+                # ticking
+
+                self.tps_delta += self.tps_clock.tick() / 120.0
+                while self.tps_delta > 1 / self.tps_max:
+                    self.tick()
+                    self.tps_delta -= 1 / self.tps_max
+
+                # drawing
+                self.screen.fill((130, 130, 130))
+                self.screen.blit(interface, (0, 0))
+
+                if brick1.bool == True:
+                    collision(self.ball, brick1)
+                if brick2.bool == True:
+                    collision(self.ball, brick2)
+                if brick3.bool == True:
+                    collision(self.ball, brick3)
+                if brick4.bool == True:
+                    collision(self.ball, brick4)
+                if brick5.bool == True:
+                    collision(self.ball, brick5)
+                if brick6.bool == True:
+                    collision(self.ball, brick6)
+                if brick7.bool == True:
+                    collision(self.ball, brick7)
+                if brick8.bool == True:
+                    collision(self.ball, brick8)
+                if brick9.bool == True:
+                    collision(self.ball, brick9)
+                if brick10.bool == True:
+                    collision(self.ball, brick10)
+                if brick11.bool == True:
+                    collision(self.ball, brick11)
+                if brick12.bool == True:
+                    collision(self.ball, brick12)
+                if brick13.bool == True:
+                    collision(self.ball, brick13)
+                if brick14.bool == True:
+                    collision(self.ball, brick14)
+
+                text = font.render(str(self.score), 1, (130, 105, 20))
+                text2 = font2.render(str(self.lvl), 1, (130, 105, 20))
+                self.screen.blit(text, (1115, 420))
+                self.screen.blit(text2, (1115, 260))
+                self.screen.blit(self.ball.draw(), (int(self.ball.pos.x), int(self.ball.pos.y)))
+
+                temp = self.ball.pos.y
+
+                # self.screen.blit(, (int(self.button.pos.x), int(self.button.pos.y)))
+                self.draw()
+                if temp > 700:
+                    self.button.bool = True
+                    youlost()
+                if self.score == 6:
+                    self.button2.bool = True
+                    nextlevelbutton()
+
+                    # Chwila przerwy przed rozpoczeciem
+                wait(-2, 2)
+
+                pygame.display.flip()
+
+        if level5()==0:
+            level6()
         else:
             sys.exit(0)
-
-
-
-
 
 
         ##############WYWOLYWANIE GRY############
