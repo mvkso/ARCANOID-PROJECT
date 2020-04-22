@@ -4,6 +4,7 @@ from brick import Brick
 from ball import Ball
 from pygame.math import Vector2
 from button import Button
+import random
 
 
 class Game(object):
@@ -33,7 +34,6 @@ class Game(object):
         self.bounceSound=pygame.mixer.Sound("assets/bounce.wav")
 
       #  hitSound = pygame.mixer.Sound("assets/hit.wav")
-
 
 
         font = pygame.font.Font(None, 72)
@@ -68,6 +68,10 @@ class Game(object):
         brick8 = Brick(self, 550, 320)
         brick9 = Brick(self, 620, 25)
         brick10 = Brick(self, 690, 320)
+        self.list=[]
+        for i in range(0,5):
+            self.list.append(Brick(self,random.randint(100,400),random.randint(100,400)))
+
 
 
 
@@ -183,9 +187,93 @@ class Game(object):
 
                 pygame.display.flip()
 
+        def test():
+            for i in self.list:
+                i.bool = True
+            global colorb
+            global colorb2
+            self.i = 0
+            self.button = Button(310, 300, 400, 100, False)
+            self.button2 = Button(310, 300, 400, 100, False)
+            self.ball.pos.x = 500
+            self.ball.pos.y = 550
+            self.player.moveX = 3
 
+
+            while True:
+
+                # Handle events
+                for event in pygame.event.get():
+                    mpos = pygame.mouse.get_pos()
+                    if event.type == pygame.QUIT:
+                        sys.exit(0)
+                    elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                        sys.exit(0)
+                    elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                        self.score += 1
+                    elif event.type == pygame.MOUSEMOTION:
+                        if isOver(self.button, mpos):
+                            colorb = (0, 255, 0)
+                        elif isOver(self.button, mpos):
+                            colorb2 = (0, 255, 0)
+                        else:
+                            colorb = (255, 0, 0)
+                    elif event.type == pygame.MOUSEBUTTONDOWN:
+                        if self.button2.bool == True and isOver(self.button2, mpos):
+                            self.button2.bool = False
+                            return 0
+
+                        if self.button.bool == True and isOver(self.button, mpos):
+                            for i in self.list:
+                                i.bool=True
+                            self.button.bool = False
+                            self.ball.moveY = 0
+                            self.ball.moveX = 0
+                            self.ball.pos.x = 500
+                            self.ball.pos.y = 550
+                            self.player.pos = Vector2(460, 650)
+                            # self.ball.moveX=-1
+                            # self.ball.moveY=2
+                            self.score = 0
+                            self.i = 0
+                            self.temp = 0
+
+                # ticking
+                self.tps_delta += self.tps_clock.tick() / 120.0
+                while self.tps_delta > 1 / self.tps_max:
+                    self.tick()
+                    self.tps_delta -= 1 / self.tps_max
+
+                # drawing
+                self.screen.fill((130, 130, 130))
+                self.screen.blit(interface, (0, 0))
+                for i in self.list:
+                    if i.bool == True:
+                        collision(self.ball, i)
+
+
+                text = font.render(str(self.score), 1, (130, 105, 20))
+                text2 = font2.render(str(self.lvl), 1, (130, 105, 20))
+                self.screen.blit(text, (1115, 420))
+                self.screen.blit(text2, (1115, 260))
+                self.screen.blit(self.ball.draw(), (int(self.ball.pos.x), int(self.ball.pos.y)))
+                temp = self.ball.pos.y
+
+                self.draw()
+                if temp > 700:
+                    self.button.bool = True
+                    youlost()
+
+                if self.score == 1:
+                    self.button2.bool = True
+                    nextlevelbutton()
+
+                wait(-1, 2)
+                pygame.display.flip()
 
         main_menu()
+        if main_menu()==0:
+            test()
 ################ LEVEL 1 #########################
 
         def level1():
@@ -285,7 +373,7 @@ class Game(object):
                     self.button.bool = True
                     youlost()
 
-                if self.score==6:
+                if self.score==1:
                     self.button2.bool = True
                     nextlevelbutton()
 
@@ -293,9 +381,9 @@ class Game(object):
                 wait(-1,2)
                 pygame.display.flip()
 
-        if main_menu() == 0:
-            self.temp2=0
-            level1()
+        # if main_menu() == 0:
+        #     self.temp2=0
+        #     level1()
 
 
 ##################################LEVEL 2#######################
@@ -406,7 +494,7 @@ class Game(object):
                 if temp>700:
                     self.button.bool=True
                     youlost()
-                if self.score==6:
+                if self.score==1:
                     self.button2.bool = True
                     nextlevelbutton()
 
