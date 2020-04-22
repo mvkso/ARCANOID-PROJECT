@@ -187,9 +187,13 @@ class Game(object):
 
                 pygame.display.flip()
 
-        def test():
-            for i in self.list:
-                i.bool = True
+        def test(a,b,c,d):
+            list=[]
+            for i in range(0,a):
+                list.append(Brick(self, random.randint(70, 884), random.randint(70, 500)))
+            for i in list:
+                i.bool=True
+
             global colorb
             global colorb2
             self.i = 0
@@ -197,7 +201,7 @@ class Game(object):
             self.button2 = Button(310, 300, 400, 100, False)
             self.ball.pos.x = 500
             self.ball.pos.y = 550
-            self.player.moveX = 3
+            self.player.moveX = b
 
 
             while True:
@@ -224,7 +228,7 @@ class Game(object):
                             return 0
 
                         if self.button.bool == True and isOver(self.button, mpos):
-                            for i in self.list:
+                            for i in list:
                                 i.bool=True
                             self.button.bool = False
                             self.ball.moveY = 0
@@ -247,7 +251,7 @@ class Game(object):
                 # drawing
                 self.screen.fill((130, 130, 130))
                 self.screen.blit(interface, (0, 0))
-                for i in self.list:
+                for i in list:
                     if i.bool == True:
                         collision(self.ball, i)
 
@@ -264,16 +268,16 @@ class Game(object):
                     self.button.bool = True
                     youlost()
 
-                if self.score == 1:
+                if self.score == a:
                     self.button2.bool = True
                     nextlevelbutton()
 
-                wait(-1, 2)
+                wait(c,d)
                 pygame.display.flip()
 
         main_menu()
         if main_menu()==0:
-            test()
+            test(1,3,-1,2)
 ################ LEVEL 1 #########################
 
         def level1():
