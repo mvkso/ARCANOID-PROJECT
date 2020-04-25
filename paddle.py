@@ -19,10 +19,10 @@ class Paddle(object):
         if pressed[pygame.K_d]:
 
             self.pos.x+=self.moveX
-        if self.pos.x > 860:
-            self.pos.x=860
-        if self.pos.x <60:
-            self.pos.x=60
+        if self.pos.x > 840:
+            self.pos.x=840
+        if self.pos.x <80:
+            self.pos.x=80
         #fizyka
 
 

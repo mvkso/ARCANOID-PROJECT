@@ -11,7 +11,7 @@ class Ball(object):
     def tick(self):
         self.pos.x+=self.moveX
         self.pos.y+=self.moveY
-        if self.pos.x>920 or self.pos.x<90:
+        if self.pos.x>920 or self.pos.x<65:
             self.bounce.play()
             self.moveX*=-1
 
