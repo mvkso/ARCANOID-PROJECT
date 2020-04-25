@@ -187,7 +187,7 @@ class Game(object):
 
                 pygame.display.flip()
 
-        def test(lvl,a,b,c,d):
+        def lvl_creator(lvl,a,b,c,d):
             points=self.score
             list=[]
             for i in range(0,a):
@@ -278,9 +278,9 @@ class Game(object):
 
         main_menu()
         if main_menu()==0:
-            lvl1=test(1,1,3,-1,2)
+            lvl1=lvl_creator(1,1,3,-1,2)
         if lvl1==0:
-            lvl2=test(2,2,3,-2,1)
+            lvl2=lvl_creator(2,2,3,-2,1)
         if lvl2==0:
             sys.exit(0)
 
