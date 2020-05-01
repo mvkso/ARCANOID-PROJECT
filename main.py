@@ -278,10 +278,26 @@ class Game(object):
 
         main_menu()
         if main_menu()==0:
-            lvl1=lvl_creator(1,1,3,-1,2)
+            lvl1=lvl_creator(1,5,3,-1,2)
         if lvl1==0:
-            lvl2=lvl_creator(2,2,3,-2,1)
+            lvl2=lvl_creator(2,7,3,-2,1)
         if lvl2==0:
+            lvl3=lvl_creator(3,10,3,-2,1)
+        if lvl3 == 0:
+            lvl4 = lvl_creator(4, 12, 3, -2, 2)
+        if lvl4 == 0:
+            lvl5 = lvl_creator(5, 20, 3, -2, 2)
+        if lvl5 == 0:
+            lvl6 = lvl_creator(6, 20, 3, -2, 3)
+        if lvl6 == 0:
+            lvl7 = lvl_creator(7, 25, 3, -3, 3)
+        if lvl7 == 0:
+            lvl8 = lvl_creator(8, 25, 3, -3, 4)
+        if lvl8 == 0:
+            lvl9 = lvl_creator(9, 25, 3, -3, 4)
+        if lvl9 == 0:
+            lvl10= lvl_creator(10,30,4,-4,4)
+        if lvl10 == 0:
             sys.exit(0)
 
 
