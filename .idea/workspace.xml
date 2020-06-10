@@ -37,7 +37,7 @@
     <property name="last_opened_file_path" value="D:/PycharmProjects/LAB2/lab2.py" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python tests.Unittests in test.py">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="ARCANOID_PROJEKT" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -59,6 +59,25 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Unittests in test.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="ARCANOID_PROJEKT" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/test.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python tests.Unittests in test.py" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -93,22 +112,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="548" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1584921823922" />
-    <state width="1515" height="210" key="GridCell.Tab.0.bottom" timestamp="1591538654337">
+    <state width="1515" height="210" key="GridCell.Tab.0.bottom" timestamp="1591567738499">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1591538654337" />
-    <state width="1515" height="210" key="GridCell.Tab.0.center" timestamp="1591538654337">
+    <state width="1515" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1591567738499" />
+    <state width="1515" height="210" key="GridCell.Tab.0.center" timestamp="1591567738499">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1591538654337" />
-    <state width="1515" height="210" key="GridCell.Tab.0.left" timestamp="1591538654337">
+    <state width="1515" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1591567738499" />
+    <state width="1515" height="210" key="GridCell.Tab.0.left" timestamp="1591567738499">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1591538654337" />
-    <state width="1515" height="210" key="GridCell.Tab.0.right" timestamp="1591538654337">
+    <state width="1515" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1591567738499" />
+    <state width="1515" height="210" key="GridCell.Tab.0.right" timestamp="1591567738499">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1591538654337" />
+    <state width="1515" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1591567738499" />
     <state width="1515" height="261" key="GridCell.Tab.1.bottom" timestamp="1584384683761">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -133,9 +152,9 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="578" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1584551391151" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1584659433679">
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1591546857035">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1584659433679" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1591546857035" />
   </component>
 </project>

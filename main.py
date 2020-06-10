@@ -7,6 +7,7 @@ from button import Button
 import random
 
 
+
 class Game(object):
     tps_max = 15.0
     colorb = (150, 150, 150)
@@ -106,8 +107,7 @@ class Game(object):
             raise Exception("Type Error")
         except ValueError:
             raise Exception("Value Error")
-        except:
-            raise Exception("Blad tworzenia poziomow")
+
 
 
 
@@ -159,6 +159,8 @@ class Game(object):
             raise Exception("Type Error in collision")
         except ValueError:
             raise Exception("Value Error in collision")
+        except:
+            raise Exception("Collision function error")
 
     def isOver(self,button: Button, mpos: tuple):
         try:
@@ -226,8 +228,8 @@ class Game(object):
     def main_menu(self):
         self.menuSong.play(-1)
 
-        global colorb
-        global colorb2
+        # self.colorb
+        # self.colorb2
         self.ball.moveY = 0
         self.ball.moveX = 0
         self.button2.bool = True
@@ -237,13 +239,13 @@ class Game(object):
                 mpos = pygame.mouse.get_pos()
                 if event.type == pygame.MOUSEMOTION:
                     if self.isOver(self.button, mpos):
-                        colorb = (0, 255, 0)
+                        self.colorb = (0, 255, 0)
                     else:
-                        colorb = (255, 0, 9)
+                        self.colorb = (255, 0, 9)
                     if self.isOver(self.button2, mpos):
-                        colorb2 = (0, 255, 0)
+                        self.colorb2 = (0, 255, 0)
                     else:
-                        colorb2 = (255, 0, 0)
+                        self.colorb2 = (255, 0, 0)
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if self.button.bool == True and self.isOver(self.button, mpos):
@@ -259,12 +261,12 @@ class Game(object):
             self.screen.fill((130, 130, 130))
             self.screen.blit(self.cosmos, (0, 0))
             if self.button.bool == True:
-                pygame.draw.rect(self.screen, colorb, pygame.Rect(self.button.draw()))
+                pygame.draw.rect(self.screen, self.colorb, pygame.Rect(self.button.draw()))
                 text4 = self.font4.render("LETS PLAY", 1, (0, 0, 0))
                 self.screen.blit(text4, ((int(self.button.pos.x + self.button.width / 2 - text4.get_width() / 2)),
                                          int((self.button.pos.y + self.button.height / 2 - text4.get_height() / 2))))
             if self.button2.bool == True:
-                pygame.draw.rect(self.screen, colorb2, pygame.Rect(self.button2.draw()))
+                pygame.draw.rect(self.screen, self.colorb2, pygame.Rect(self.button2.draw()))
                 text5 = self.font5.render("QUIT", 1, (0, 0, 0))
                 self.screen.blit(text5, ((int(self.button2.pos.x + self.button.width / 2 - text5.get_width() / 2)),
                                          int((self.button2.pos.y + self.button.height / 2 - text5.get_height() / 2))))
