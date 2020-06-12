@@ -82,31 +82,34 @@ class Game(object):
         try:
             self.main_menu()
             if self.main_menu()==0:
-                lvl1=self.lvl_creator(1,3,3,-1,2)
-            if lvl1==0:
-                lvl2=self.lvl_creator(2,4,3,-2,1)
-            if lvl2==0:
-                lvl3=self.lvl_creator(3,8,3,-2,1)
-            if lvl3 == 0:
-                lvl4 = self.lvl_creator(4, 10, 3, -2, 2)
-            if lvl4 == 0:
-                lvl5 = self.lvl_creator(5, 15, 3, -3, 2)
-            if lvl5 == 0:
-                lvl6 = self.lvl_creator(6, 20, 3, -2, 3)
-            if lvl6 == 0:
-                lvl7 = self.lvl_creator(7, 25, 3, -3, 3)
-            if lvl7 == 0:
-                lvl8 = self.lvl_creator(8, 27, 3, -3, 4)
-            if lvl8 == 0:
-                lvl9 = self.lvl_creator(9, 29, 3, -4, 4)
-            if lvl9 == 0:
-                lvl10= self.lvl_creator(10,30,5,-4,5)
-            if lvl10 == 0:
-                sys.exit(0)
+            #     lvl1=self.lvl_creator(1,3,3,-1,2)
+            # if lvl1==0:
+            #     lvl2=self.lvl_creator(2,4,3,-2,1)
+            # if lvl2==0:
+            #     lvl3=self.lvl_creator(3,8,3,-2,1)
+            # if lvl3 == 0:
+            #     lvl4 = self.lvl_creator(4, 10, 3, -2, 2)
+            # if lvl4 == 0:
+            #     lvl5 = self.lvl_creator(5, 15, 3, -3, 2)
+            # if lvl5 == 0:
+            #     lvl6 = self.lvl_creator(6, 20, 3, -2, 3)
+            # if lvl6 == 0:
+            #     lvl7 = self.lvl_creator(7, 25, 3, -3, 3)
+            # if lvl7 == 0:
+            #     lvl8 = self.lvl_creator(8, 27, 3, -3, 4)
+            # if lvl8 == 0:
+            #     lvl9 = self.lvl_creator(9, 29, 3, -4, 4)
+            # if lvl9 == 0:
+            #      lvl10= self.lvl_creator(10,29,6,-7,5)
+            #             # if lvl10 == 0:
+                print("finish")
+                return None
         except TypeError:
             raise Exception("Type Error")
         except ValueError:
             raise Exception("Value Error")
+        except Exception:
+            raise Exception("Error")
 
 
 
@@ -157,8 +160,6 @@ class Game(object):
                 self.score += 1
         except TypeError:
             raise Exception("Type Error in collision")
-        except ValueError:
-            raise Exception("Value Error in collision")
         except:
             raise Exception("Collision function error")
 
@@ -170,10 +171,10 @@ class Game(object):
             return False
         except TypeError:
             raise Exception("Type Error - isOver fun")
-        except ValueError:
-            raise Exception("Value Error - isOver fun")
+        except Exception:
+            raise Exception("Error - isOver")
 
-    def wait(self,x, y):
+    def wait(self,x: int, y: int):
         try:
             if self.i < 100:
                 self.ball.moveX = 0
@@ -183,11 +184,11 @@ class Game(object):
                 self.ball.moveX = x
                 self.ball.moveY = y
                 self.i += 1
-                print(self.ball.pos)
+                #print(self.ball.pos)
         except TypeError:
             raise Exception("Type Error")
-        except ValueError:
-            raise Exception("Value Error")
+        except Exception:
+            raise Exception("Error - wait")
 
     def youlost(self):
         if self.temp == 0:
@@ -221,8 +222,8 @@ class Game(object):
                                          int((self.button.pos.y + self.button.height / 2 - text3.get_height() / 2))))
         except TypeError:
             raise Exception("Type Error")
-        except ValueError:
-            raise Exception("Value Error")
+        except Exception:
+            raise Exception("Error")
 
     ########################MAIN MENU###############
     def main_menu(self):
@@ -361,9 +362,9 @@ class Game(object):
                 self.wait(c, d)
                 pygame.display.flip()
         except TypeError:
-            raise Exception("Type Error")
-        except ValueError:
-            raise Exception("Value Error")
+             raise Exception("Type Error")
+        except Exception:
+             raise Exception("Error - lvl creator")
 
 
 

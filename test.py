@@ -1,38 +1,40 @@
 import unittest
 from main import Game
+from unittest import main
 import ball
 import brick
 import button
 import paddle
 
-class ArcanoidTest(unittest.TestCase):
+class TestArcanoid(unittest.TestCase):
     def setUp(self):
         self.gra=Game()
 
     def test_collision(self):
-        self.assertRaises(Exception,self.gra.collision,ball,brick)
         self.assertRaises(Exception,self.gra.collision,ball,"test")
-        self.assertRaises(Exception,self.gra.collision,5,1)
+        self.assertRaises(Exception,self.gra.collision,"ball",24)
+        self.assertRaises(Exception,self.gra.collision,2,1)
 
     def test_isOver(self):
-        self.assertRaises(Exception,self.gra.isOver,button,(1,2))
-        self.assertRaises(Exception,self.gra.isOver,"test","parowóz")
-        self.assertRaises(Exception,self.gra.isOver,2,1)
+        self.assertRaises(Exception,self.gra.isOver,"test",1)
+        self.assertRaises(Exception,self.gra.isOver,251,button)
+        self.assertRaises(Exception,self.gra.isOver,ball,paddle)
+        self.assertRaises(Exception,self.gra.isOver,[("tak"),("nie")],10.124)
 
-    def test_wait(self):
-        self.assertRaises(Exception, self.gra.wait, button, (1, 2))
-        self.assertRaises(Exception, self.gra.wait, "test", "parowóz")
-        self.assertRaises(Exception, self.gra.wait, 2, 1)
 
     def test_nextlvlbutton(self):
-        self.assertRaises(Exception, self.gra.nextlevelbutton, button)
-        self.assertRaises(Exception, self.gra.nextlevelbutton, 4)
-        self.assertRaises(Exception, self.gra.nextlevelbutton, "test")
+        self.assertRaises(Exception, self.gra.nextlevelbutton, "przemyslaw")
+        self.assertRaises(Exception, self.gra.nextlevelbutton, ["janusz","warcaba","politechnika"])
+        self.assertRaises(Exception, self.gra.nextlevelbutton, ball)
+        self.assertRaises(Exception, self.gra.nextlevelbutton, brick)
+
 
     def test_lvlcreator(self):
-        self.assertRaises(Exception, self.gra.lvl_creator,1,2,3,4,5)
-        self.assertRaises(Exception, self.gra.lvl_creator,1,button,3,4,"sowa")
+        self.assertEqual(self.gra.lvl_creator(10,1,5,-4,6),0)
         self.assertRaises(Exception, self.gra.lvl_creator,2,14,3,4,"sowa")
+        self.assertRaises(Exception, self.gra.lvl_creator,12,4,"adam",412,"sarna")
+        self.assertRaises(Exception, self.gra.lvl_creator,[(150+34),("tak")],paddle,brick,ball,11.4)
+
 
 
 
