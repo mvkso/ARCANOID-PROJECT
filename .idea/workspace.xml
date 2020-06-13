@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3020bc1c-5d05-4813-be56-e3e21ff62953" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Opis_projektu" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/paddle.py" beforeDir="false" afterPath="$PROJECT_DIR$/paddle.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +37,7 @@
     <property name="last_opened_file_path" value="D:/PycharmProjects/LAB2/lab2.py" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python tests.Unittests in test.py">
+  <component name="RunManager" selected="Python.main">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="ARCANOID_PROJEKT" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -105,10 +104,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1583618801868" />
-    <state x="520" y="215" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1584656821143">
+    <state x="520" y="215" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1592049267548">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="520" y="215" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1584656821143" />
+    <state x="520" y="215" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1592049267548" />
     <state x="548" y="167" key="FileChooserDialogImpl" timestamp="1584921823922">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
