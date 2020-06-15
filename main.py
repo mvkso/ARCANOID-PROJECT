@@ -1,11 +1,10 @@
-import sys,pygame
+import sys, pygame
 from paddle import Paddle
 from brick import Brick
 from ball import Ball
 from pygame.math import Vector2
 from button import Button
 import random
-
 
 
 class Game(object):
@@ -21,19 +20,18 @@ class Game(object):
     tps_clock = pygame.time.Clock()
     tps_delta = 0.0
 
-
     def __init__(self):
-        #config
+        # config
 
-        #inicjalizacja
+        # inicjalizacja
         try:
 
-            self.failure=pygame.mixer.Sound("assets/lose.wav")
-            self.hitSound=pygame.mixer.Sound("assets/hit.wav")
-            self.winSound=pygame.mixer.Sound("assets/win.wav")
-            #Za duza waga menuSong
-            #self.menuSong=pygame.mixer.Sound("assets/menu.wav")
-            self.bounceSound=pygame.mixer.Sound("assets/bounce.wav")
+            self.failure = pygame.mixer.Sound("assets/lose.wav")
+            self.hitSound = pygame.mixer.Sound("assets/hit.wav")
+            self.winSound = pygame.mixer.Sound("assets/win.wav")
+            # Za duza waga menuSong
+            # self.menuSong=pygame.mixer.Sound("assets/menu.wav")
+            self.bounceSound = pygame.mixer.Sound("assets/bounce.wav")
         except:
             raise Exception("Music initialization went wrong")
 
@@ -42,10 +40,7 @@ class Game(object):
         self.font3 = pygame.font.Font(None, 45)
         self.font4 = pygame.font.Font(None, 72)
         self.font5 = pygame.font.Font(None, 72)
-      #  hitSound = pygame.mixer.Sound("assets/hit.wav")
-
-
-
+        #  hitSound = pygame.mixer.Sound("assets/hit.wav")
 
         # nazwa gry
 
@@ -53,38 +48,24 @@ class Game(object):
             pygame.display.set_caption("Arcanoid")
 
             self.icon = pygame.image.load("assets/rocket.png")
-            self.interface=pygame.image.load("assets/interface.png")
-            self.cosmos=pygame.image.load("assets/cosmos.png")
+            self.interface = pygame.image.load("assets/interface.png")
+            self.cosmos = pygame.image.load("assets/cosmos.png")
             pygame.display.set_icon(self.icon)
         except FileNotFoundError:
             raise Exception("File not found")
-        self.screen= pygame.display.set_mode((1280,720))
-        self.tps_clock=pygame.time.Clock()
-        self.tps_delta= 0.0
+        self.screen = pygame.display.set_mode((1280, 720))
+        self.tps_clock = pygame.time.Clock()
+        self.tps_delta = 0.0
 
-        self.player= Paddle(self)
-        self.ball=Ball(self, 600,350)
-        self.button=Button(440,200,400,100,False)
-        self.button2=Button(440,500,400,100,False)
+        self.player = Paddle(self)
+        self.ball = Ball(self, 600, 350)
+        self.button = Button(440, 200, 400, 100, False)
+        self.button2 = Button(440, 500, 400, 100, False)
 
+        self.list = []
 
-        self.list=[]
-
-        for i in range(0,5):
-            self.list.append(Brick(self,random.randint(100,400),random.randint(100,400)))
-
-
-
-
-
-
-
-
-
-
-
-
-
+        for i in range(0, 5):
+            self.list.append(Brick(self, random.randint(100, 400), random.randint(100, 400)))
 
         #
         # if level9()==0:
@@ -94,31 +75,26 @@ class Game(object):
         # else:
         #     sys.exit(0)
 
-
-
         ##############WYWOLYWANIE GRY############
-
 
     def tick(self):
         # checking Inputs
 
         self.player.tick()
         self.ball.tick()
-        if self.ball.pos.x > (self.player.pos.x-5) and self.ball.pos.x < (self.player.pos.x+105) and (self.ball.pos.y>self.player.pos.y-20):
-            if self.ball.pos.y<self.player.pos.y+20:
+        if self.ball.pos.x > (self.player.pos.x - 5) and self.ball.pos.x < (self.player.pos.x + 105) and (
+                self.ball.pos.y > self.player.pos.y - 20):
+            if self.ball.pos.y < self.player.pos.y + 20:
                 self.bounceSound.play()
-                self.ball.moveY=-1
-        #self.ball.tick()
-
-
-
+                self.ball.moveY = -1
+        # self.ball.tick()
 
     def draw(self):
         # drawing
         self.player.draw()
         self.ball.draw()
 
-    def collision(self,ball: Ball, brick: Brick):
+    def collision(self, ball: Ball, brick: Brick):
         try:
             self.screen.blit(brick.draw(), (int(brick.pos.x), int(brick.pos.y)))
             if ball.pos.x > (brick.pos.x - 5) and ball.pos.x < (brick.pos.x + 69) and (
@@ -133,7 +109,7 @@ class Game(object):
         except:
             raise Exception("Collision function error")
 
-    def isOver(self,button: Button, mpos: tuple):
+    def isOver(self, button: Button, mpos: tuple):
         try:
             if mpos[0] > button.pos.x and mpos[0] < button.pos[0] + button.width:
                 if mpos[1] > button.pos[1] and mpos[1] < button.pos[1] + button.height:
@@ -144,7 +120,7 @@ class Game(object):
         except Exception:
             raise Exception("Error - isOver")
 
-    def wait(self,x: int, y: int):
+    def wait(self, x: int, y: int):
         try:
             if self.i < 100:
                 self.ball.moveX = 0
@@ -154,7 +130,7 @@ class Game(object):
                 self.ball.moveX = x
                 self.ball.moveY = y
                 self.i += 1
-                #print(self.ball.pos)
+                # print(self.ball.pos)
         except TypeError:
             raise Exception("Type Error")
         except Exception:
@@ -170,7 +146,7 @@ class Game(object):
         self.screen.blit(text3, ((int(self.button.pos.x + self.button.width / 2 - text3.get_width() / 2)),
                                  int((self.button.pos.y + self.button.height / 2 - text3.get_height() / 2))))
 
-    def nextlevelbutton(self,lvl):
+    def nextlevelbutton(self, lvl):
         try:
             if self.temp2 == 0:
                 self.winSound.play()
@@ -197,7 +173,7 @@ class Game(object):
 
     ########################MAIN MENU###############
     def main_menu(self):
-        #self.menuSong.play(-1)
+        # self.menuSong.play(-1)
 
         # self.colorb
         # self.colorb2
@@ -221,7 +197,7 @@ class Game(object):
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if self.button.bool == True and self.isOver(self.button, mpos):
                         self.button.bool = False
-                       # self.menuSong.stop()
+                        # self.menuSong.stop()
                         return 0
                     if self.button2.bool == True and self.isOver(self.button2, mpos):
                         self.button2.bool = False
@@ -244,7 +220,7 @@ class Game(object):
 
             pygame.display.flip()
 
-    def lvl_creator(self,lvl, a, b, c, d):
+    def lvl_creator(self, lvl, a, b, c, d):
         try:
             points = self.score
             list = []
@@ -332,20 +308,19 @@ class Game(object):
                 self.wait(c, d)
                 pygame.display.flip()
         except TypeError:
-             raise Exception("Type Error")
+            raise Exception("Type Error")
         except Exception:
-             raise Exception("Error - lvl creator")
-
+            raise Exception("Error - lvl creator")
 
     def play(self):
         try:
             self.main_menu()
-            if self.main_menu()==0:
-                lvl1=self.lvl_creator(1,3,3,-1,2)
-            if lvl1==0:
-                lvl2=self.lvl_creator(2,4,3,-2,1)
-            if lvl2==0:
-                lvl3=self.lvl_creator(3,8,3,-2,1)
+            if self.main_menu() == 0:
+                lvl1 = self.lvl_creator(1, 3, 3, -1, 2)
+            if lvl1 == 0:
+                lvl2 = self.lvl_creator(2, 4, 3, -2, 1)
+            if lvl2 == 0:
+                lvl3 = self.lvl_creator(3, 8, 3, -2, 1)
             if lvl3 == 0:
                 lvl4 = self.lvl_creator(4, 10, 3, -2, 2)
             if lvl4 == 0:
@@ -359,7 +334,7 @@ class Game(object):
             if lvl8 == 0:
                 lvl9 = self.lvl_creator(9, 29, 3, -4, 4)
             if lvl9 == 0:
-                 lvl10= self.lvl_creator(10,29,6,-7,5)
+                lvl10 = self.lvl_creator(10, 29, 6, -7, 5)
             if lvl10 == 0:
                 print("finish")
                 return None
@@ -371,22 +346,14 @@ class Game(object):
             raise Exception("Error")
 
 
-
-
-
-
-
-
-
 def main():
     pygame.init()
     pygame.mixer.init(44100, -16, 2, 2048)
-    game=Game()
+    game = Game()
     game.play()
+
 
 # for font in pygame.font.get_fonts():
 #     print(font)
-if __name__== "__main__":
+if __name__ == "__main__":
     main()
-
-
