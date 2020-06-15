@@ -27,8 +27,7 @@ class Game(object):
 
         #inicjalizacja
         try:
-            pygame.init()
-            pygame.mixer.init(44100, -16,2,2048)
+
             self.failure=pygame.mixer.Sound("assets/lose.wav")
             self.hitSound=pygame.mixer.Sound("assets/hit.wav")
             self.winSound=pygame.mixer.Sound("assets/win.wav")
@@ -381,6 +380,7 @@ class Game(object):
 
 def main():
     pygame.init()
+    pygame.mixer.init(44100, -16, 2, 2048)
     game=Game()
     game.play()
 
