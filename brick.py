@@ -1,4 +1,4 @@
-import pygame, sys
+import pygame
 from pygame.math import Vector2
 
 

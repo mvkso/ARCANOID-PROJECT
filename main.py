@@ -1,17 +1,24 @@
-import sys, pygame
+import sys
+import random
+
+import pygame
+from pygame.math import Vector2
+
 from paddle import Paddle
 from brick import Brick
 from ball import Ball
-from pygame.math import Vector2
 from button import Button
-import random
+from colors import Colors
 
+#DO TESTOW W TYM MIEJSCU
+#pygame.init()
+#pygame.mixer.init(44100, -16, 2, 2048)
 
 class Game(object):
     tps_max = 15.0
-    colorb = (150, 150, 150)
-    colorb2 = (150, 150, 150)
-    lvl = 1
+    kolor_okna = Colors.okno_zielone
+    kolor_okna2 = Colors.okno_zielone
+    level = 1
     score = 0
     i = 0
     temp = 0
@@ -19,11 +26,15 @@ class Game(object):
     screen = pygame.display.set_mode((1280, 720))
     tps_clock = pygame.time.Clock()
     tps_delta = 0.0
+    # LEVEL_PARAMS = [(1, 1, 3, -1, 2)]
+
+    LEVEL_PARAMS = [(1, 1, 3, -1, 2),  (2, 4, 3, -2, 1),
+                    (3, 8, 3, -2, 1),  (4, 10, 3, -2, 2),
+                    (5, 15, 3, -3, 2), (6, 20, 3, -2, 3),
+                    (7, 25, 3, -3, 3), (8, 27, 3, -3, 4),
+                    (9, 29, 3, -4, 4), (10, 29, 6, -7, 5)]
 
     def __init__(self):
-        # config
-
-        # inicjalizacja
         try:
 
             self.failure = pygame.mixer.Sound("assets/lose.wav")
@@ -67,16 +78,6 @@ class Game(object):
         for i in range(0, 5):
             self.list.append(Brick(self, random.randint(100, 400), random.randint(100, 400)))
 
-        #
-        # if level9()==0:
-        #     self.temp2 = 0
-        #     self.score = 0
-        #     level10()
-        # else:
-        #     sys.exit(0)
-
-        ##############WYWOLYWANIE GRY############
-
     def tick(self):
         # checking Inputs
 
@@ -87,7 +88,6 @@ class Game(object):
             if self.ball.pos.y < self.player.pos.y + 20:
                 self.bounceSound.play()
                 self.ball.moveY = -1
-        # self.ball.tick()
 
     def draw(self):
         # drawing
@@ -140,32 +140,38 @@ class Game(object):
         if self.temp == 0:
             self.failure.play()
             self.temp += 1
-        global colorb
-        pygame.draw.rect(self.screen, colorb, pygame.Rect(self.button.draw()))
+        self.kolor_okna
+        pygame.draw.rect(self.screen, self.kolor_okna, pygame.Rect(self.button.draw()))
         text3 = self.font3.render("YOU LOST", 1, (0, 0, 0))
         self.screen.blit(text3, ((int(self.button.pos.x + self.button.width / 2 - text3.get_width() / 2)),
                                  int((self.button.pos.y + self.button.height / 2 - text3.get_height() / 2))))
 
-    def nextlevelbutton(self, lvl):
+    def nextlevelbutton(self, level):
         try:
             if self.temp2 == 0:
                 self.winSound.play()
                 self.temp2 += 1
 
-            global colorb
+            self.kolor_okna
             self.ball.moveX = 0
             self.ball.moveY = 0
             self.player.moveX = 0
-            if lvl < 10:
-                pygame.draw.rect(self.screen, colorb, pygame.Rect(self.button.draw()))
-                text3 = self.font3.render("DOUBLE CLICK TO LVL " + str(lvl + 1), 1, (0, 0, 0))
+            if level < 10:
+                pygame.draw.rect(self.screen, self.kolor_okna, pygame.Rect(self.button.draw()))
+                text3 = self.font3.render("DOUBLE CLICK TO LVL " + str(level + 1), 1, (0, 0, 0))
                 self.screen.blit(text3, ((int(self.button.pos.x + self.button.width / 2 - text3.get_width() / 2)),
                                          int((self.button.pos.y + self.button.height / 2 - text3.get_height() / 2))))
-            elif lvl == 10:
-                pygame.draw.rect(self.screen, colorb, pygame.Rect(self.button.draw()))
+            elif level == 10:
+                pygame.draw.rect(self.screen, self.kolor_okna, pygame.Rect(self.button.draw()))
                 text3 = self.font3.render("YOU WON!!!!!!!!!!!!", 1, (0, 0, 0))
                 self.screen.blit(text3, ((int(self.button.pos.x + self.button.width / 2 - text3.get_width() / 2)),
                                          int((self.button.pos.y + self.button.height / 2 - text3.get_height() / 2))))
+            elif level > 10:
+                pygame.draw.rect(self.screen, self.kolor_okna, pygame.Rect(self.button.draw()))
+                text3 = self.font3.render("Nie powinno Cie tu byc", 1, (0, 0, 0))
+                self.screen.blit(text3, ((int(self.button.pos.x + self.button.width / 2 - text3.get_width() / 2)),
+                                         int((self.button.pos.y + self.button.height / 2 - text3.get_height() / 2))))
+
         except TypeError:
             raise Exception("Type Error")
         except Exception:
@@ -175,8 +181,6 @@ class Game(object):
     def main_menu(self):
         # self.menuSong.play(-1)
 
-        # self.colorb
-        # self.colorb2
         self.ball.moveY = 0
         self.ball.moveX = 0
         self.button2.bool = True
@@ -186,13 +190,13 @@ class Game(object):
                 mpos = pygame.mouse.get_pos()
                 if event.type == pygame.MOUSEMOTION:
                     if self.isOver(self.button, mpos):
-                        self.colorb = (0, 255, 0)
+                        self.kolor_okna = Colors.okno_zielone
                     else:
-                        self.colorb = (255, 0, 9)
+                        self.kolor_okna = Colors.okno_czerwone
                     if self.isOver(self.button2, mpos):
-                        self.colorb2 = (0, 255, 0)
+                        self.kolor_okna2 = Colors.okno_zielone
                     else:
-                        self.colorb2 = (255, 0, 0)
+                        self.kolor_okna2 = Colors.okno_czerwone
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if self.button.bool == True and self.isOver(self.button, mpos):
@@ -208,19 +212,19 @@ class Game(object):
             self.screen.fill((130, 130, 130))
             self.screen.blit(self.cosmos, (0, 0))
             if self.button.bool == True:
-                pygame.draw.rect(self.screen, self.colorb, pygame.Rect(self.button.draw()))
+                pygame.draw.rect(self.screen, self.kolor_okna, pygame.Rect(self.button.draw()))
                 text4 = self.font4.render("LETS PLAY", 1, (0, 0, 0))
                 self.screen.blit(text4, ((int(self.button.pos.x + self.button.width / 2 - text4.get_width() / 2)),
                                          int((self.button.pos.y + self.button.height / 2 - text4.get_height() / 2))))
             if self.button2.bool == True:
-                pygame.draw.rect(self.screen, self.colorb2, pygame.Rect(self.button2.draw()))
+                pygame.draw.rect(self.screen, self.kolor_okna2, pygame.Rect(self.button2.draw()))
                 text5 = self.font5.render("QUIT", 1, (0, 0, 0))
                 self.screen.blit(text5, ((int(self.button2.pos.x + self.button.width / 2 - text5.get_width() / 2)),
                                          int((self.button2.pos.y + self.button.height / 2 - text5.get_height() / 2))))
 
             pygame.display.flip()
 
-    def lvl_creator(self, lvl, a, b, c, d):
+    def level_creator(self, level, a, b, c, d):
         try:
             points = self.score
             list = []
@@ -229,8 +233,8 @@ class Game(object):
             for i in list:
                 i.bool = True
 
-            global colorb
-            global colorb2
+            self.kolor_okna
+            self.kolor_okna2
             self.i = 0
             self.button = Button(310, 300, 400, 100, False)
             self.button2 = Button(310, 300, 400, 100, False)
@@ -251,15 +255,15 @@ class Game(object):
                         self.score += 1
                     elif event.type == pygame.MOUSEMOTION:
                         if self.isOver(self.button, mpos):
-                            colorb = (0, 255, 0)
+                            kolor_okna = Colors.okno_zielone
                         elif self.isOver(self.button, mpos):
-                            colorb2 = (0, 255, 0)
+                            kolor_okna2 = Colors.okno_czerwone
                         else:
-                            colorb = (255, 0, 0)
+                            kolor_okna = Colors.okno_zielone
                     elif event.type == pygame.MOUSEBUTTONDOWN:
                         if self.button2.bool == True and self.isOver(self.button2, mpos):
                             self.button2.bool = False
-                            return 0
+                            return True
 
                         if self.button.bool == True and self.isOver(self.button, mpos):
                             for i in list:
@@ -290,7 +294,7 @@ class Game(object):
                         self.collision(self.ball, i)
 
                 text = self.font.render(str(self.score), 1, (130, 105, 20))
-                text2 = self.font2.render(str(lvl), 1, (130, 105, 20))
+                text2 = self.font2.render(str(level), 1, (130, 105, 20))
                 self.screen.blit(text, (1115, 420))
                 self.screen.blit(text2, (1115, 260))
                 self.screen.blit(self.ball.draw(), (int(self.ball.pos.x), int(self.ball.pos.y)))
@@ -303,57 +307,52 @@ class Game(object):
 
                 if self.score == points + a:
                     self.button2.bool = True
-                    self.nextlevelbutton(lvl)
+                    self.nextlevelbutton(level)
 
                 self.wait(c, d)
                 pygame.display.flip()
         except TypeError:
             raise Exception("Type Error")
         except Exception:
-            raise Exception("Error - lvl creator")
+            raise Exception("Error - level creator")
 
     def play(self):
         try:
+            i = 0
+            level = True
             self.main_menu()
             if self.main_menu() == 0:
-                lvl1 = self.lvl_creator(1, 3, 3, -1, 2)
-            if lvl1 == 0:
-                lvl2 = self.lvl_creator(2, 4, 3, -2, 1)
-            if lvl2 == 0:
-                lvl3 = self.lvl_creator(3, 8, 3, -2, 1)
-            if lvl3 == 0:
-                lvl4 = self.lvl_creator(4, 10, 3, -2, 2)
-            if lvl4 == 0:
-                lvl5 = self.lvl_creator(5, 15, 3, -3, 2)
-            if lvl5 == 0:
-                lvl6 = self.lvl_creator(6, 20, 3, -2, 3)
-            if lvl6 == 0:
-                lvl7 = self.lvl_creator(7, 25, 3, -3, 3)
-            if lvl7 == 0:
-                lvl8 = self.lvl_creator(8, 27, 3, -3, 4)
-            if lvl8 == 0:
-                lvl9 = self.lvl_creator(9, 29, 3, -4, 4)
-            if lvl9 == 0:
-                lvl10 = self.lvl_creator(10, 29, 6, -7, 5)
-            if lvl10 == 0:
-                print("finish")
-                return None
+                while level:
+                    level = self.level_creator(*self.LEVEL_PARAMS[i])
+                    i += 1
+                    # Inny sposób to:
+                    # for i in self.LEVEL_PARAMS:
+                    #     level = self.level_creator(*i)
+                    # level = False
+            print("finish")
+            return True
         except TypeError:
             raise Exception("Type Error")
         except ValueError:
             raise Exception("Value Error")
+        except IndexError:
+            level = False
         except Exception:
             raise Exception("Error")
 
 
+
 def main():
+    #W PRZYPADKU TESTOW ZAMIENIAM MIEJSCAMI PONIZSZE DWIE LINIJKI NA MIEJSCE NAD KLASA Game
     pygame.init()
     pygame.mixer.init(44100, -16, 2, 2048)
     game = Game()
-    game.play()
+    if game.play():
+        return 0
 
 
 # for font in pygame.font.get_fonts():
 #     print(font)
 if __name__ == "__main__":
     main()
+

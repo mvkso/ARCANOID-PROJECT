@@ -1,6 +1,6 @@
 import pygame
 from pygame.math import Vector2
-from ball import Ball
+
 
 
 class Paddle(object):
