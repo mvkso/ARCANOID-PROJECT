@@ -1,8 +1,5 @@
 import random
-import pygame
-
 import unittest
-from pygame.math import Vector2
 
 from main import Game
 import ball
