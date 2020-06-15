@@ -1,4 +1,4 @@
-import pygame, sys
+import sys,pygame
 from paddle import Paddle
 from brick import Brick
 from ball import Ball
@@ -32,7 +32,8 @@ class Game(object):
             self.failure=pygame.mixer.Sound("assets/lose.wav")
             self.hitSound=pygame.mixer.Sound("assets/hit.wav")
             self.winSound=pygame.mixer.Sound("assets/win.wav")
-            self.menuSong=pygame.mixer.Sound("assets/menu.wav")
+            #Za duza waga menuSong
+            #self.menuSong=pygame.mixer.Sound("assets/menu.wav")
             self.bounceSound=pygame.mixer.Sound("assets/bounce.wav")
         except:
             raise Exception("Music initialization went wrong")
@@ -227,7 +228,7 @@ class Game(object):
 
     ########################MAIN MENU###############
     def main_menu(self):
-        self.menuSong.play(-1)
+        #self.menuSong.play(-1)
 
         # self.colorb
         # self.colorb2
@@ -251,7 +252,7 @@ class Game(object):
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if self.button.bool == True and self.isOver(self.button, mpos):
                         self.button.bool = False
-                        self.menuSong.stop()
+                       # self.menuSong.stop()
                         return 0
                     if self.button2.bool == True and self.isOver(self.button2, mpos):
                         self.button2.bool = False
@@ -373,11 +374,13 @@ class Game(object):
 
 
 
-
+def main():
+    pygame.init()
+    Game()
 
 # for font in pygame.font.get_fonts():
 #     print(font)
 if __name__== "__main__":
-    Game()
+    main()
 
 
