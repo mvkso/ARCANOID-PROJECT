@@ -83,7 +83,7 @@ class Game(object):
 
         self.player.tick()
         self.ball.tick()
-        if self.ball.pos.x > (self.player.pos.x - 5) and self.ball.pos.x < (self.player.pos.x + 105) and (
+        if (self.player.pos.x - 5) < self.ball.pos.x < (self.player.pos.x + 105) and (
                 self.ball.pos.y > self.player.pos.y - 20):
             if self.ball.pos.y < self.player.pos.y + 20:
                 self.bounceSound.play()
@@ -97,7 +97,7 @@ class Game(object):
     def collision(self, ball: Ball, brick: Brick):
         try:
             self.screen.blit(brick.draw(), (int(brick.pos.x), int(brick.pos.y)))
-            if ball.pos.x > (brick.pos.x - 5) and ball.pos.x < (brick.pos.x + 69) and (
+            if (brick.pos.x - 5) < ball.pos.x < (brick.pos.x + 69) and (
                     ball.pos.y > brick.pos.y - 10) and ball.pos.y < brick.pos.y + 74:
                 self.hitSound.play()
                 ball.moveY *= -1
@@ -111,8 +111,8 @@ class Game(object):
 
     def isOver(self, button: Button, mpos: tuple):
         try:
-            if mpos[0] > button.pos.x and mpos[0] < button.pos[0] + button.width:
-                if mpos[1] > button.pos[1] and mpos[1] < button.pos[1] + button.height:
+            if button.pos.x < mpos[0] < button.pos[0] + button.width:
+                if button.pos[1] < mpos[1] < button.pos[1] + button.height:
                     return True
             return False
         except TypeError:

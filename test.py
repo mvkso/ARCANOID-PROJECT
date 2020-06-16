@@ -33,7 +33,7 @@ class TestArcanoid(unittest.TestCase):
         Xmove = ball_test.moveX
         Ymove = ball_test.moveY
         self.gra.collision(ball_test, brick_test)
-        if ball_test.pos.x > (brick_test.pos.x - 5) and ball_test.pos.x < (brick_test.pos.x + 69) and (
+        if (brick_test.pos.x - 5) < ball_test.pos.x < (brick_test.pos.x + 69) and (
                 ball_test.pos.y > brick_test.pos.y - 10) and ball_test.pos.y < brick_test.pos.y + 74:
             self.assertEqual(ball_test.moveY, -1 * Ymove)
             self.assertEqual(ball_test.moveX, -1 * Xmove)
