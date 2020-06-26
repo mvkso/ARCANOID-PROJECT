@@ -6,7 +6,6 @@ class Button(object):
         self.bool = bool
         self.pos = math.Vector2(x, y)
         self.width = width
-
         self.height = height
 
     def draw(self):

@@ -23,7 +23,6 @@ class Game(object):
     screen = pygame.display.set_mode((1280, 720))
     tps_clock = pygame.time.Clock()
     tps_delta = 0.0
-    # LEVEL_PARAMS = [(1, 1, 3, -1, 2)]
 
     LEVEL_PARAMS = [(1, 1, 3, -1, 2), (2, 4, 3, -2, 1),
                     (3, 8, 3, -2, 1), (4, 10, 3, -2, 2),
@@ -32,12 +31,12 @@ class Game(object):
                     (9, 29, 3, -4, 4), (10, 29, 6, -7, 5)]
 
     def __init__(self):
+        pygame.init()
+        pygame.mixer.init(44100, -16, 2, 2048)
         try:
-
             self.failure = pygame.mixer.Sound("assets/lose.wav")
             self.hitSound = pygame.mixer.Sound("assets/hit.wav")
             self.winSound = pygame.mixer.Sound("assets/win.wav")
-            # Za duza waga menuSong
             # self.menuSong=pygame.mixer.Sound("assets/menu.wav")
             self.bounceSound = pygame.mixer.Sound("assets/bounce.wav")
         except:
@@ -54,7 +53,6 @@ class Game(object):
 
         try:
             pygame.display.set_caption("Arcanoid")
-
             self.icon = pygame.image.load("assets/rocket.png")
             self.interface = pygame.image.load("assets/interface.png")
             self.cosmos = pygame.image.load("assets/cosmos.png")
@@ -106,10 +104,10 @@ class Game(object):
         except:
             raise Exception("Collision function error")
 
-    def isOver(self, button: Button, mpos: tuple):
+    def isOver(self, button: Button, mouse_pos: tuple):
         try:
-            if button.pos.x < mpos[0] < button.pos[0] + button.width:
-                if button.pos[1] < mpos[1] < button.pos[1] + button.height:
+            if button.pos[0] < mouse_pos[0] < button.pos[0] + button.width:
+                if button.pos[1] < mouse_pos[1] < button.pos[1] + button.height:
                     return True
             return False
         except TypeError:
@@ -127,29 +125,26 @@ class Game(object):
                 self.ball.moveX = x
                 self.ball.moveY = y
                 self.i += 1
-                # print(self.ball.pos)
         except TypeError:
             raise Exception("Type Error")
         except Exception:
             raise Exception("Error - wait")
 
-    def youlost(self):
+    def you_lost_statement(self):
         if self.temp == 0:
             self.failure.play()
             self.temp += 1
-        self.TEMP_COLOR
         pygame.draw.rect(self.screen, self.TEMP_COLOR, pygame.Rect(self.button.draw()))
         text3 = self.font3.render("YOU LOST", 1, (0, 0, 0))
         self.screen.blit(text3, ((int(self.button.pos.x + self.button.width / 2 - text3.get_width() / 2)),
                                  int((self.button.pos.y + self.button.height / 2 - text3.get_height() / 2))))
 
-    def nextlevelbutton(self, level):
+    def next_level_button(self, level):
         try:
             if self.temp2 == 0:
                 self.winSound.play()
                 self.temp2 += 1
 
-            self.TEMP_COLOR
             self.ball.moveX = 0
             self.ball.moveY = 0
             self.player.moveX = 0
@@ -172,12 +167,11 @@ class Game(object):
         except TypeError:
             raise Exception("Type Error")
         except Exception:
-            raise Exception("Error - nextlevelbutton")
+            raise Exception("Error - next_level_button")
 
     ########################MAIN MENU###############
     def main_menu(self):
         # self.menuSong.play(-1)
-
         self.ball.moveY = 0
         self.ball.moveX = 0
         self.button2.bool = True
@@ -196,11 +190,11 @@ class Game(object):
                         self.TEMP_COLOR2 = Colors.BUTTON_COLOR
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if self.button.bool == True and self.isOver(self.button, mpos):
+                    if self.button.bool and self.isOver(self.button, mpos):
                         self.button.bool = False
                         # self.menuSong.stop()
                         return 0
-                    if self.button2.bool == True and self.isOver(self.button2, mpos):
+                    if self.button2.bool and self.isOver(self.button2, mpos):
                         self.button2.bool = False
                         sys.exit(0)
 
@@ -208,12 +202,12 @@ class Game(object):
                     sys.exit(0)
             self.screen.fill((130, 130, 130))
             self.screen.blit(self.cosmos, (0, 0))
-            if self.button.bool == True:
+            if self.button.bool:
                 pygame.draw.rect(self.screen, self.TEMP_COLOR, pygame.Rect(self.button.draw()))
                 text4 = self.font4.render("LETS PLAY", 1, (0, 0, 0))
                 self.screen.blit(text4, ((int(self.button.pos.x + self.button.width / 2 - text4.get_width() / 2)),
                                          int((self.button.pos.y + self.button.height / 2 - text4.get_height() / 2))))
-            if self.button2.bool == True:
+            if self.button2.bool:
                 pygame.draw.rect(self.screen, self.TEMP_COLOR2, pygame.Rect(self.button2.draw()))
                 text5 = self.font5.render("QUIT", 1, (0, 0, 0))
                 self.screen.blit(text5, ((int(self.button2.pos.x + self.button.width / 2 - text5.get_width() / 2)),
@@ -221,14 +215,14 @@ class Game(object):
 
             pygame.display.flip()
 
-    def level_creator(self, level, a, b, c, d):
+    def generator_poziomow(self, level, a, b, c, d):
         try:
             points = self.score
-            list = []
+            list_of_bricks = []
             for i in range(a):
-                list.append(Brick(self, random.randint(70, 884), random.randint(70, 500)))
-            for i in list:
-                i.bool = True
+                list_of_bricks.append(Brick(self, random.randint(70, 884), random.randint(70, 500)))
+            for brick in list_of_bricks:
+                brick.bool = True
 
             self.TEMP_COLOR
             self.TEMP_COLOR2
@@ -258,12 +252,12 @@ class Game(object):
                         else:
                             TEMP_COLOR = Colors.HOVER_COLOR
                     elif event.type == pygame.MOUSEBUTTONDOWN:
-                        if self.button2.bool == True and self.isOver(self.button2, mpos):
+                        if self.button2.bool and self.isOver(self.button2, mpos):
                             self.button2.bool = False
                             return True
 
-                        if self.button.bool == True and self.isOver(self.button, mpos):
-                            for i in list:
+                        if self.button.bool and self.isOver(self.button, mpos):
+                            for i in list_of_bricks:
                                 i.bool = True
                             self.button.bool = False
                             self.ball.moveY = 0
@@ -284,8 +278,8 @@ class Game(object):
                 # drawing
                 self.screen.fill((130, 130, 130))
                 self.screen.blit(self.interface, (0, 0))
-                for i in list:
-                    if i.bool == True:
+                for i in list_of_bricks:
+                    if i.bool:
                         self.collision(self.ball, i)
 
                 text = self.font.render(str(self.score), 1, (130, 105, 20))
@@ -293,16 +287,16 @@ class Game(object):
                 self.screen.blit(text, (1115, 420))
                 self.screen.blit(text2, (1115, 260))
                 self.screen.blit(pygame.image.load("assets/ball.png"), (int(self.ball.pos.x), int(self.ball.pos.y)))
-                temp = self.ball.pos.y
+                old_y = self.ball.pos.y
 
                 self.draw()
-                if temp > 700:
+                if old_y > 700:
                     self.button.bool = True
-                    self.youlost()
+                    self.you_lost_statement()
 
                 if self.score == points + a:
                     self.button2.bool = True
-                    self.nextlevelbutton(level)
+                    self.next_level_button(level)
 
                 self.wait(c, d)
                 pygame.display.flip()
@@ -318,34 +312,23 @@ class Game(object):
             self.main_menu()
             if self.main_menu() == 0:
                 while level:
-                    level = self.level_creator(*self.LEVEL_PARAMS[i])
+                    level = self.generator_poziomow(*self.LEVEL_PARAMS[i])
                     i += 1
-                    # Inny sposób to:
-                    # for i in self.LEVEL_PARAMS:
-                    #     level = self.level_creator(*i)
-                    # level = False
             print("finish")
             return True
         except TypeError:
             raise Exception("Type Error")
         except ValueError:
             raise Exception("Value Error")
-        except IndexError:
-            level = False
         except Exception:
             raise Exception("Error")
 
 
 def main():
-    # W PRZYPADKU TESTOW ZAMIENIAM MIEJSCAMI PONIZSZE DWIE LINIJKI NA MIEJSCE NAD KLASA Game
-    pygame.init()
-    pygame.mixer.init(44100, -16, 2, 2048)
     game = Game()
-    if game.play():
-        return 0
+    game.play()
 
 
-# for font in pygame.font.get_fonts():
-#     print(font)
+
 if __name__ == "__main__":
     main()

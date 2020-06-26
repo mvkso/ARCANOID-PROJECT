@@ -13,60 +13,63 @@ class TestArcanoid(unittest.TestCase):
     def setUp(self):
         self.gra = Game()
 
-    def test_colors(self):
-        self.assertEqual(colors.Colors.okno_zielone, (0, 255, 0))
-        self.assertEqual(colors.Colors.okno_czerwone, (255, 0, 0))
-        self.assertEqual(colors.Colors.okno_szare, (150, 150, 150))
-
-    def test_collision(self):
-        self.assertRaises(Exception, self.gra.collision, ball, "test")
-        self.assertRaises(Exception, self.gra.collision, "ball", 24)
-        self.assertRaises(Exception, self.gra.collision, 2, 1)
-
-    def test_collision_dynamic(self):
-        ballx = random.randint(100, 400)
-        bally = random.randint(100, 400)
-        brickx = random.randint(100, 400)
-        bricky = random.randint(100, 400)
-        brick_test = brick.Brick(self.gra, brickx, bricky)
-        ball_test = ball.Ball(self.gra, ballx, bally)
-        Xmove = ball_test.moveX
-        Ymove = ball_test.moveY
+    def test_kolizja_zachodzi(self):
+        ball_x = 200
+        ball_y = 120
+        brick_x = 205
+        brick_y = 120
+        brick_test = brick.Brick(self.gra, brick_x, brick_y)
+        ball_test = ball.Ball(self.gra, ball_x, ball_y)
+        X_move = ball_test.moveX
+        Y_move = ball_test.moveY
         self.gra.collision(ball_test, brick_test)
         if (brick_test.pos.x - 5) < ball_test.pos.x < (brick_test.pos.x + 69) and (
-                ball_test.pos.y > brick_test.pos.y - 10) and ball_test.pos.y < brick_test.pos.y + 74:
-            self.assertEqual(ball_test.moveY, -1 * Ymove)
-            self.assertEqual(ball_test.moveX, -1 * Xmove)
-        else:
-            self.assertEqual(ball_test.moveY, Ymove)
-            self.assertEqual(ball_test.moveX, Xmove)
+                ball_test.pos.y > ball_test.pos.y - 10) and ball_test.pos.y < brick_test.pos.y + 74:
+            self.assertEqual(ball_test.moveY, -1 * Y_move)
+            self.assertEqual(ball_test.moveX, -1 * X_move)
 
-    def test_wait_dynamic(self):
-        self.gra.ball=ball.Ball(self.gra,0,0)
-        x1=random.randint(0,5)
-        y1=random.randint(0,5)
-        for self.gra.i in range(0, 101):
-            self.gra.wait(x1,y1)
-        self.assertEqual(x1,self.gra.ball.moveX)
-        self.assertEqual(y1,self.gra.ball.moveY)
+    def test_kolizja_nie_zachodzi(self):
+        ball_x = 500
+        ball_y = 500
+        brick_x = 300
+        brick_y = 300
+        brick_test = brick.Brick(self.gra, brick_x, brick_y)
+        ball_test = ball.Ball(self.gra, ball_x, ball_y)
+        X_move = ball_test.moveX
+        Y_move = ball_test.moveY
+        self.gra.collision(ball_test, brick_test)
+        if (brick_test.pos.x - 5) < ball_test.pos.x < (brick_test.pos.x + 69) and (
+                ball_test.pos.y > ball_test.pos.y - 10) and ball_test.pos.y < brick_test.pos.y + 74:
+            self.assertNotEqual(ball_test.moveY, Y_move)
+            self.assertNotEqual(ball_test.moveX, X_move)
 
-    def test_isOver(self):
-        self.assertRaises(Exception, self.gra.isOver, "test", 1)
-        self.assertRaises(Exception, self.gra.isOver, 251, button)
-        self.assertRaises(Exception, self.gra.isOver, ball, paddle)
-        self.assertRaises(Exception, self.gra.isOver, ["tak", "nie"], 10.124)
+    def test_funkcji_wait(self):
+        """
+        Funkcja wait na czas wykonania sie petli wstrzymuje ruch pilki. Po tym czasie ustawia predkosc jej poruszania na podana wartosc.
+        Test_wait_dynamic sprawdza czy po przejsciu petli, funkcja wait, ustawia odpowiednie wartosci dla pilki.
+        """
+        self.gra.ball = ball.Ball(self.gra, 0, 0)
+        x1 = random.randint(0, 5)
+        y1 = random.randint(0, 5)
+        for self.gra.i in range(101):
+            self.gra.wait(x1, y1)
+        self.assertEqual(x1, self.gra.ball.moveX)
+        self.assertEqual(y1, self.gra.ball.moveY)
 
-    def test_nextlvlbutton(self):
-        self.assertRaises(Exception, self.gra.nextlevelbutton, "przemyslaw")
-        self.assertRaises(Exception, self.gra.nextlevelbutton, ["janusz", "warcaba", "politechnika"])
-        self.assertRaises(Exception, self.gra.nextlevelbutton, ball)
-        self.assertRaises(Exception, self.gra.nextlevelbutton, brick)
+    def test_isOver_zachodzi(self):
+        """
+        Test dla funkcji isOver sprawdzajacej czy kursor myszki znajduje sie nad przyciskiem.
+        """
+        button_test = button.Button(0, 0, 400, 100, True)
+        mouse_position_test = (200, 50)
+        wynik = self.gra.isOver(button_test, mouse_position_test)
+        self.assertEqual(wynik, True)
 
-    def test_lvlcreator(self):
-        self.assertEqual(self.gra.level_creator(10, 1, 5, -4, 6), True)
-        self.assertRaises(Exception, self.gra.level_creator, 2, 14, 3, 4, "sowa")
-        self.assertRaises(Exception, self.gra.level_creator, 12, 4, "adam", 412, "sarna")
-        self.assertRaises(Exception, self.gra.level_creator, [(150 + 34), "tak"], paddle, brick, ball, 11.4)
+    def test_isOver_nie_zachodzi(self):
+        button_test = button.Button(0, 0, 400, 100, True)
+        mouse_position_test = (500,500)
+        wynik = self.gra.isOver(button_test,mouse_position_test)
+        self.assertNotEqual(wynik,True)
 
 
 if __name__ == '__main__':
