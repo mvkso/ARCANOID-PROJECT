@@ -2,7 +2,7 @@ import sys
 import random
 
 import pygame
-from pygame.math import Vector2
+from pygame import math
 
 from paddle import Paddle
 from brick import Brick
@@ -10,14 +10,11 @@ from ball import Ball
 from button import Button
 from colors import Colors
 
-#DO TESTOW W TYM MIEJSCU
-#pygame.init()
-#pygame.mixer.init(44100, -16, 2, 2048)
 
 class Game(object):
     tps_max = 15.0
-    kolor_okna = Colors.okno_zielone
-    kolor_okna2 = Colors.okno_zielone
+    TEMP_COLOR = Colors.HOVER_COLOR
+    TEMP_COLOR2 = Colors.HOVER_COLOR
     level = 1
     score = 0
     i = 0
@@ -28,8 +25,8 @@ class Game(object):
     tps_delta = 0.0
     # LEVEL_PARAMS = [(1, 1, 3, -1, 2)]
 
-    LEVEL_PARAMS = [(1, 1, 3, -1, 2),  (2, 4, 3, -2, 1),
-                    (3, 8, 3, -2, 1),  (4, 10, 3, -2, 2),
+    LEVEL_PARAMS = [(1, 1, 3, -1, 2), (2, 4, 3, -2, 1),
+                    (3, 8, 3, -2, 1), (4, 10, 3, -2, 2),
                     (5, 15, 3, -3, 2), (6, 20, 3, -2, 3),
                     (7, 25, 3, -3, 3), (8, 27, 3, -3, 4),
                     (9, 29, 3, -4, 4), (10, 29, 6, -7, 5)]
@@ -75,7 +72,7 @@ class Game(object):
 
         self.list = []
 
-        for i in range(0, 5):
+        for i in range(5):
             self.list.append(Brick(self, random.randint(100, 400), random.randint(100, 400)))
 
     def tick(self):
@@ -92,7 +89,7 @@ class Game(object):
     def draw(self):
         # drawing
         self.player.draw()
-        self.ball.draw()
+        pygame.image.load("assets/ball.png")
 
     def collision(self, ball: Ball, brick: Brick):
         try:
@@ -140,8 +137,8 @@ class Game(object):
         if self.temp == 0:
             self.failure.play()
             self.temp += 1
-        self.kolor_okna
-        pygame.draw.rect(self.screen, self.kolor_okna, pygame.Rect(self.button.draw()))
+        self.TEMP_COLOR
+        pygame.draw.rect(self.screen, self.TEMP_COLOR, pygame.Rect(self.button.draw()))
         text3 = self.font3.render("YOU LOST", 1, (0, 0, 0))
         self.screen.blit(text3, ((int(self.button.pos.x + self.button.width / 2 - text3.get_width() / 2)),
                                  int((self.button.pos.y + self.button.height / 2 - text3.get_height() / 2))))
@@ -152,22 +149,22 @@ class Game(object):
                 self.winSound.play()
                 self.temp2 += 1
 
-            self.kolor_okna
+            self.TEMP_COLOR
             self.ball.moveX = 0
             self.ball.moveY = 0
             self.player.moveX = 0
             if level < 10:
-                pygame.draw.rect(self.screen, self.kolor_okna, pygame.Rect(self.button.draw()))
+                pygame.draw.rect(self.screen, self.TEMP_COLOR, pygame.Rect(self.button.draw()))
                 text3 = self.font3.render("DOUBLE CLICK TO LVL " + str(level + 1), 1, (0, 0, 0))
                 self.screen.blit(text3, ((int(self.button.pos.x + self.button.width / 2 - text3.get_width() / 2)),
                                          int((self.button.pos.y + self.button.height / 2 - text3.get_height() / 2))))
             elif level == 10:
-                pygame.draw.rect(self.screen, self.kolor_okna, pygame.Rect(self.button.draw()))
+                pygame.draw.rect(self.screen, self.TEMP_COLOR, pygame.Rect(self.button.draw()))
                 text3 = self.font3.render("YOU WON!!!!!!!!!!!!", 1, (0, 0, 0))
                 self.screen.blit(text3, ((int(self.button.pos.x + self.button.width / 2 - text3.get_width() / 2)),
                                          int((self.button.pos.y + self.button.height / 2 - text3.get_height() / 2))))
             elif level > 10:
-                pygame.draw.rect(self.screen, self.kolor_okna, pygame.Rect(self.button.draw()))
+                pygame.draw.rect(self.screen, self.TEMP_COLOR, pygame.Rect(self.button.draw()))
                 text3 = self.font3.render("Nie powinno Cie tu byc", 1, (0, 0, 0))
                 self.screen.blit(text3, ((int(self.button.pos.x + self.button.width / 2 - text3.get_width() / 2)),
                                          int((self.button.pos.y + self.button.height / 2 - text3.get_height() / 2))))
@@ -190,13 +187,13 @@ class Game(object):
                 mpos = pygame.mouse.get_pos()
                 if event.type == pygame.MOUSEMOTION:
                     if self.isOver(self.button, mpos):
-                        self.kolor_okna = Colors.okno_zielone
+                        self.TEMP_COLOR = Colors.HOVER_COLOR
                     else:
-                        self.kolor_okna = Colors.okno_czerwone
+                        self.TEMP_COLOR = Colors.BUTTON_COLOR
                     if self.isOver(self.button2, mpos):
-                        self.kolor_okna2 = Colors.okno_zielone
+                        self.TEMP_COLOR2 = Colors.HOVER_COLOR
                     else:
-                        self.kolor_okna2 = Colors.okno_czerwone
+                        self.TEMP_COLOR2 = Colors.BUTTON_COLOR
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if self.button.bool == True and self.isOver(self.button, mpos):
@@ -212,12 +209,12 @@ class Game(object):
             self.screen.fill((130, 130, 130))
             self.screen.blit(self.cosmos, (0, 0))
             if self.button.bool == True:
-                pygame.draw.rect(self.screen, self.kolor_okna, pygame.Rect(self.button.draw()))
+                pygame.draw.rect(self.screen, self.TEMP_COLOR, pygame.Rect(self.button.draw()))
                 text4 = self.font4.render("LETS PLAY", 1, (0, 0, 0))
                 self.screen.blit(text4, ((int(self.button.pos.x + self.button.width / 2 - text4.get_width() / 2)),
                                          int((self.button.pos.y + self.button.height / 2 - text4.get_height() / 2))))
             if self.button2.bool == True:
-                pygame.draw.rect(self.screen, self.kolor_okna2, pygame.Rect(self.button2.draw()))
+                pygame.draw.rect(self.screen, self.TEMP_COLOR2, pygame.Rect(self.button2.draw()))
                 text5 = self.font5.render("QUIT", 1, (0, 0, 0))
                 self.screen.blit(text5, ((int(self.button2.pos.x + self.button.width / 2 - text5.get_width() / 2)),
                                          int((self.button2.pos.y + self.button.height / 2 - text5.get_height() / 2))))
@@ -228,13 +225,13 @@ class Game(object):
         try:
             points = self.score
             list = []
-            for i in range(0, a):
+            for i in range(a):
                 list.append(Brick(self, random.randint(70, 884), random.randint(70, 500)))
             for i in list:
                 i.bool = True
 
-            self.kolor_okna
-            self.kolor_okna2
+            self.TEMP_COLOR
+            self.TEMP_COLOR2
             self.i = 0
             self.button = Button(310, 300, 400, 100, False)
             self.button2 = Button(310, 300, 400, 100, False)
@@ -255,11 +252,11 @@ class Game(object):
                         self.score += 1
                     elif event.type == pygame.MOUSEMOTION:
                         if self.isOver(self.button, mpos):
-                            kolor_okna = Colors.okno_zielone
+                            TEMP_COLOR = Colors.HOVER_COLOR
                         elif self.isOver(self.button, mpos):
-                            kolor_okna2 = Colors.okno_czerwone
+                            TEMP_COLOR2 = Colors.BUTTON_COLOR
                         else:
-                            kolor_okna = Colors.okno_zielone
+                            TEMP_COLOR = Colors.HOVER_COLOR
                     elif event.type == pygame.MOUSEBUTTONDOWN:
                         if self.button2.bool == True and self.isOver(self.button2, mpos):
                             self.button2.bool = False
@@ -273,9 +270,7 @@ class Game(object):
                             self.ball.moveX = 0
                             self.ball.pos.x = 500
                             self.ball.pos.y = 550
-                            self.player.pos = Vector2(460, 650)
-                            # self.ball.moveX=-1
-                            # self.ball.moveY=2
+                            self.player.pos = math.Vector2(460, 650)
                             self.score = 0
                             self.i = 0
                             self.temp = 0
@@ -297,7 +292,7 @@ class Game(object):
                 text2 = self.font2.render(str(level), 1, (130, 105, 20))
                 self.screen.blit(text, (1115, 420))
                 self.screen.blit(text2, (1115, 260))
-                self.screen.blit(self.ball.draw(), (int(self.ball.pos.x), int(self.ball.pos.y)))
+                self.screen.blit(pygame.image.load("assets/ball.png"), (int(self.ball.pos.x), int(self.ball.pos.y)))
                 temp = self.ball.pos.y
 
                 self.draw()
@@ -341,9 +336,8 @@ class Game(object):
             raise Exception("Error")
 
 
-
 def main():
-    #W PRZYPADKU TESTOW ZAMIENIAM MIEJSCAMI PONIZSZE DWIE LINIJKI NA MIEJSCE NAD KLASA Game
+    # W PRZYPADKU TESTOW ZAMIENIAM MIEJSCAMI PONIZSZE DWIE LINIJKI NA MIEJSCE NAD KLASA Game
     pygame.init()
     pygame.mixer.init(44100, -16, 2, 2048)
     game = Game()
@@ -355,4 +349,3 @@ def main():
 #     print(font)
 if __name__ == "__main__":
     main()
-

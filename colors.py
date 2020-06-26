@@ -1,4 +1,4 @@
 class Colors:
-    okno_zielone = (0, 255, 0)
-    okno_czerwone = (255, 0, 0)
-    okno_szare = (150, 150, 150)
+    HOVER_COLOR = (0, 255, 0)   #GREEN
+    BUTTON_COLOR = (255, 0, 0) #RED
+    DEFAULT_COLOR = (150, 150, 150) #GREY

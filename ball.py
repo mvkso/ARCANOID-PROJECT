@@ -1,12 +1,12 @@
 import pygame
-from pygame.math import Vector2
+from pygame import math
 
 
 class Ball(object):
     def __init__(self, game, x, y):
         self.bounce = pygame.mixer.Sound("assets/bounce.wav")
         self.game = game
-        self.pos = Vector2(int(x), int(y))
+        self.pos = math.Vector2(int(x), int(y))
         self.moveX = -1
         self.moveY = 2
 

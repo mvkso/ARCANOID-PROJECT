@@ -1,5 +1,5 @@
 import pygame
-from pygame.math import Vector2
+from pygame import math
 
 
 
@@ -8,7 +8,7 @@ class Paddle(object):
     def __init__(self, game):
         self.game = game
         self.moveX = 3
-        self.pos = Vector2(460, 650)
+        self.pos = math.Vector2(460, 650)
 
     def tick(self):
         # Input

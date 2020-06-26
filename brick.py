@@ -1,11 +1,12 @@
 import pygame
-from pygame.math import Vector2
+from pygame import math
 
 
 class Brick(object):
+
     def __init__(self, game, x, y):
         self.game = game
-        self.pos = Vector2(round(x), round(y))
+        self.pos = math.Vector2(round(x), round(y))
         self.bool = True
 
     def draw(self):
