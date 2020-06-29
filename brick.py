@@ -1,6 +1,8 @@
 import pygame
 from pygame import math
 
+import assets
+
 
 class Brick(object):
 
@@ -10,4 +12,4 @@ class Brick(object):
         self.bool = True
 
     def draw(self):
-        return pygame.image.load("assets/brick.png")
+        return assets.Assets.brick_image

@@ -1,4 +1,4 @@
 class Colors:
-    HOVER_COLOR = (0, 255, 0)   #GREEN
-    BUTTON_COLOR = (255, 0, 0) #RED
-    DEFAULT_COLOR = (150, 150, 150) #GREY
+    GREEN_COLOR = (0, 255, 0)
+    RED_COLOR = (255, 0, 0)
+    GREY_COLOR = (150, 150, 150)
