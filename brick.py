@@ -1,10 +1,9 @@
-import pygame
 from pygame import math
 
 import assets
 
 
-class Brick(object):
+class Brick:
 
     def __init__(self, game, x, y):
         self.game = game

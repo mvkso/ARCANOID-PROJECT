@@ -2,12 +2,11 @@ import pygame
 from pygame import math
 
 
-
-class Paddle(object):
+class Paddle:
 
     def __init__(self, game):
         self.game = game
-        self.moveX = 3
+        self.move_x = 3
         self.pos = math.Vector2(460, 650)
 
     def tick(self):
@@ -15,9 +14,9 @@ class Paddle(object):
         pressed = pygame.key.get_pressed()
 
         if pressed[pygame.K_a]:
-            self.pos.x -= self.moveX
+            self.pos.x -= self.move_x
         if pressed[pygame.K_d]:
-            self.pos.x += self.moveX
+            self.pos.x += self.move_x
         if self.pos.x > 840:
             self.pos.x = 840
         if self.pos.x < 80:

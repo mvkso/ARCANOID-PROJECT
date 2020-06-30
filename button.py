@@ -1,9 +1,9 @@
 from pygame import math
 
 
-class Button(object):
-    def __init__(self, x, y, width, height, bool):
-        self.bool = bool
+class Button:
+    def __init__(self, x, y, width, height, boolean: bool):
+        self.bool = boolean
         self.pos = math.Vector2(x, y)
         self.width = width
         self.height = height
